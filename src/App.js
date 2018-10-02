@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import Chat from './components/Chat';
+import socket from './socket';
+import { onFetchMessages } from './actions/MESSAGES';
 
 class App extends Component {
   state = {
-    messages: [
-      {
-        id: 1,
-        text: 'I love coding',
-      },
-      {
-        id: 2,
-        text: 'I love coding',
-      },
-      {
-        id: 3,
-        text: 'I love coding',
-      },
-      {
-        id: 4,
-        text: 'I love coding',
-      },
-    ],
+    messages: [],
     text: ''
+  }
+
+  componentDidMount() {
+    socket.on('MESSAGES', (messages) => {
+      this.setState({
+        messages: messages
+      });
+    });
+
+    socket.on('MESSAGE', (message) => {
+      this.setState({
+        messages: this.state.messages.concat([message]),
+        text: ''
+      });
+    });
+
+    this.onFetchMessages();
+  }
+
+  onFetchMessages = async () => {
+    const response = await onFetchMessages();
+
+    console.log('response ', response);
+
+    if (response.success) {
+      this.setState({
+        messages: response.messages
+      });
+    }
   }
 
   onChange = (e) => {
@@ -30,14 +44,20 @@ class App extends Component {
     })
   }
 
+  onKeyPress = (e) => {
+    const key = e.keyCode || e.which;
+
+    if (key === 13) {
+      this.onSendMessage();
+    }
+  }
+
   onSendMessage = () => {
-    this.setState({
-      messages: this.state.messages.concat([{
-        id: 5,
+    if (this.state.text) {
+      socket.emit('MESSAGE', {
         text: this.state.text
-      }]),
-      text: ''
-    });
+      });
+    }
   }
 
   render() {
@@ -46,6 +66,7 @@ class App extends Component {
         <Chat 
           {...this.state}
           onChange={this.onChange}
+          onKeyPress={this.onKeyPress}
           onSendMessage={this.onSendMessage}
         />
       </div>

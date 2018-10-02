@@ -17,7 +17,7 @@ const styles = theme => ({
 });
 
 const OutlineInput = (props) => {
-  const { classes, text, onChange } = props;
+  const { classes, text, onChange, onKeyPress } = props;
 
   return (
     <div className={classes.root}>
@@ -34,6 +34,7 @@ const OutlineInput = (props) => {
         }}
         value={text}
         onChange={onChange}
+        onKeyPress={onKeyPress}
       />
     </div>
   );
