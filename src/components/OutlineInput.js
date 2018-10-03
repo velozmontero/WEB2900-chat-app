@@ -24,9 +24,13 @@ const OutlineInput = (props) => {
       <TextField
         id="outlined-full-width"
         label="Enter Message"
-        style={{ margin: 8 }}
-        placeholder="Placeholder"
-        fullWidth
+        style={{ 
+          margin: 8,
+          flex: 1, 
+          borderColor: '#FFF',
+          color: '#FFF',
+        }}
+        placeholder="Enter a message"
         margin="normal"
         variant="outlined"
         InputLabelProps={{

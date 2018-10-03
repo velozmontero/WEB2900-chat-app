@@ -7,26 +7,30 @@ const Chat = (props) => {
 
   return (
     <div className="chat-container">
-      <div style={{
-        height: '400px',
-        backgroundColor: '#ff0000'
-      }}>
+      <div className="chat-header">
+        General Chat
+      </div>
+
+      <div className="chat-messages">
         {
           messages.map((message) => (
-            <div key={message._id}>{message.text}</div>
+            <div className="bubble-left" key={message._id}>{message.text}</div>
           ))
         }
       </div>
 
-      <OutlineInput 
-        text={text}
-        onChange={onChange} 
-        onKeyPress={onKeyPress}
-      />
+      <div className="chat-input-btn-container">
+        <OutlineInput
+          text={text}
+          onChange={onChange}
+          onKeyPress={onKeyPress}
+        />
 
-      <CircleButton 
-        onSendMessage={onSendMessage}
-      />
+        <CircleButton
+          onSendMessage={onSendMessage}
+        />
+      </div>
+      
     </div>
   )
 }

@@ -19,7 +19,7 @@ const CircleButton = (props) => {
     <div>
       <Button 
         variant="fab" 
-        color="primary" 
+        color="secondary" 
         aria-label="Add" 
         className={classes.button}
         onClick={onSendMessage}  
