@@ -15,11 +15,12 @@ const styles = theme => ({
 
 const CircleButton = (props) => {
   const { classes, onSendMessage } = props;
+
   return (
     <div>
       <Button 
         variant="fab" 
-        color="secondary" 
+        color={"secondary"}
         aria-label="Add" 
         className={classes.button}
         onClick={onSendMessage}  

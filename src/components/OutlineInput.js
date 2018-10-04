@@ -12,8 +12,11 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   textField: {
-    flexBasis: 200,
+    flexBasis: 200
   },
+  input: {
+    color: "white"
+  }
 });
 
 const OutlineInput = (props) => {
@@ -26,15 +29,16 @@ const OutlineInput = (props) => {
         label="Enter Message"
         style={{ 
           margin: 8,
-          flex: 1, 
-          borderColor: '#FFF',
-          color: '#FFF',
+          flex: 1
         }}
         placeholder="Enter a message"
         margin="normal"
         variant="outlined"
         InputLabelProps={{
           shrink: true,
+        }}
+        InputProps={{
+          className: classes.input
         }}
         value={text}
         onChange={onChange}

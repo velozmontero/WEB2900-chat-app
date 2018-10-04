@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Chat from './components/Chat';
 import socket from './socket';
 import { onFetchMessages } from './actions/MESSAGES';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from './theme';
 
 class App extends Component {
   state = {
@@ -14,7 +16,7 @@ class App extends Component {
       this.setState({
         messages: this.state.messages.concat([message]),
         text: ''
-      });
+      }, () => this.container.scrollTop = this.container.scrollHeight);
     });
 
     this.onFetchMessages();
@@ -54,16 +56,23 @@ class App extends Component {
     }
   }
 
+  onMessagesContainerRef = (ref) => {
+    this.container = ref;
+  }
+
   render() {
     return (
-      <div className="App">
-        <Chat 
-          {...this.state}
-          onChange={this.onChange}
-          onKeyPress={this.onKeyPress}
-          onSendMessage={this.onSendMessage}
-        />
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className="App">
+          <Chat
+            {...this.state}
+            onChange={this.onChange}
+            onKeyPress={this.onKeyPress}
+            onSendMessage={this.onSendMessage}
+            onMessagesContainerRef={this.onMessagesContainerRef}
+          />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
